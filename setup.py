@@ -45,8 +45,8 @@ packages = [
 
 project_urls = {
     "Documentation": "https://discord-ext-ipc.readthedocs.io",
-    "Issue Tracker": "https://github.com/Ext-Creators/discord-ext-ipc/issues",
-    "Source": "https://github.com/Ext-Creators/discord-ext-ipc",
+    "Issue Tracker": "https://github.com/MelonBot-Development/discord-ext-ipc/issues",
+    "Source": "https://github.com/MelonBot-Development/discord-ext-ipc",
 }
 
 _version_regex = r"^version = ('|\")((?:[0-9]+\.)*[0-9]+(?:\.?([a-z]+)(?:\.?[0-9])?)?)\1$"
@@ -76,7 +76,7 @@ if match.group(3) is not None:
 setuptools.setup(
     author="Ext-Creators",
     classifiers=classifiers,
-    description="A discord.py extension for inter-process communication.",
+    description="A discord.py (red-discordbot) extension for inter-process communication.",
     extras_require=extras_require,
     install_requires=install_requires,
     license="Apache Software License",
@@ -84,6 +84,6 @@ setuptools.setup(
     packages=packages,
     project_urls=project_urls,
     python_requires=">=3.5.3",
-    url="https://github.com/Ext-Creators/discord-ext-ipc",
+    url="https://github.com/MelonBot-Development/discord-ext-ipc",
     version=version,
 )

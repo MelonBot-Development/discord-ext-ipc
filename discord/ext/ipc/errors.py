@@ -1,4 +1,4 @@
-from discord import DiscordException
+from discord import DiscordException # type: ignore
 
 
 class IPCError(DiscordException):

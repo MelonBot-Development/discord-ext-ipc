@@ -1,8 +1,11 @@
+from __future__ import annotations
+
 import asyncio
 import logging
-import typing
+from typing import Optional, Any, Dict
 
 import aiohttp
+
 from discord.ext.ipc.errors import *
 
 log = logging.getLogger(__name__)
@@ -22,27 +25,33 @@ class Client:
         The secret key for your IPC server. Must match the server secret_key or requests will not go ahead, defaults to None
     """
 
-    def __init__(self, host="localhost", port=None, multicast_port=20000, secret_key=None):
+    def __init__(
+        self, 
+        host: str = "localhost", 
+        port: Optional[int] = None, 
+        multicast_port: int = 20000, 
+        secret_key: Optional[str] = None
+    ) -> None:
         """Constructor"""
-        self.loop = asyncio.get_event_loop()
+        self.loop: asyncio.AbstractEventLoop = asyncio.get_event_loop()
 
-        self.secret_key = secret_key
+        self.secret_key: Optional[str] = secret_key
 
-        self.host = host
-        self.port = port
+        self.host: str = host
+        self.port: Optional[int] = port
 
-        self.session = None
+        self.session: Optional[aiohttp.ClientSession] = None
 
-        self.websocket = None
-        self.multicast = None
+        self.websocket: Any = None
+        self.multicast: Any = None
 
-        self.multicast_port = multicast_port
+        self.multicast_port: int = multicast_port
 
     @property
-    def url(self):
+    def url(self) -> str:
         return "ws://{0.host}:{1}".format(self, self.port if self.port else self.multicast_port)
 
-    async def init_sock(self):
+    async def init_sock(self) -> aiohttp.ClientWebSocketResponse:
         """Attempts to connect to the server
 
         Returns
@@ -82,7 +91,7 @@ class Client:
 
         return self.websocket
 
-    async def request(self, endpoint, **kwargs):
+    async def request(self, endpoint: str, **kwargs: Any) -> Optional[Dict[str, Any]]:
         """Make a request to the IPC server process.
 
         Parameters
@@ -125,7 +134,7 @@ class Client:
                 "WebSocket connection unexpectedly closed. IPC Server is unreachable. Attempting reconnection in 5 seconds."
             )
 
-            await self.session.close()
+            await self.session.close() # type: ignore
 
             await asyncio.sleep(5)
 
