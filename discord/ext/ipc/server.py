@@ -1,13 +1,23 @@
 from __future__ import annotations
 
 import logging
-from typing import Any, Callable, Dict, Iterable, Optional, Tuple
+from typing import Any, Callable, Dict, Iterable, Optional, Tuple, TYPE_CHECKING, TypeVar
 
 import asyncio
 import aiohttp.web
 
 from discord.ext.ipc.errors import *
 from redbot.core.bot import Red
+from redbot.core import commands
+
+if TYPE_CHECKING:
+    from typing_extensions import ParamSpec, TypeAlias
+    
+    P = ParamSpec("P")
+    T = TypeVar("T")
+    
+    RouteFunc: TypeAlias = Callable[P, T]
+    
 
 log = logging.getLogger(__name__)
 
@@ -136,6 +146,12 @@ class Server:
         self.multicast_port: int = multicast_port
 
         self.endpoints: Dict[str, Callable] = {} # type: ignore
+        
+    def get_cls(self, func: RouteFunc) -> Optional[commands.Cog]:
+        for cog in self.bot.cogs.values():
+            if func.__name__ in dir(cog):
+                return cog # type: ignore
+        return self.bot
 
     def route(self, name: Optional[str] = None) -> Callable:
         """Used to register a coroutine as an endpoint when you have
