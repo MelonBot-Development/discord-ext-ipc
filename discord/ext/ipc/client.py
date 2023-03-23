@@ -84,7 +84,11 @@ class Client:
                 raise NotConnected("Multicast server connection failed.")
 
             port_data = recv.json()
-            self.port = port_data["port"]
+            try:
+                self.port = port_data["port"]
+            except KeyError:
+                await self.session.close()
+                raise NotConnected('Invalid or no "PORT" provided.')
 
         self.websocket = await self.session.ws_connect(self.url, autoping=False, autoclose=False)
         log.info("Client connected to %s", self.url)
