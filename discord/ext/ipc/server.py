@@ -132,8 +132,6 @@ class Server:
         host: str = "localhost",
         port: int = 8765,
         secret_key: Optional[str] = None,
-        do_multicast: bool = True,
-        multicast_port: int = 20000,
     ):
         self.bot: Red = bot
         self.loop: asyncio.AbstractEventLoop = bot.loop
