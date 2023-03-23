@@ -283,7 +283,6 @@ class Server:
 
         with __import__('contextlib').suppress(TypeError):
             try:
-                self._server = FastAPI()
                 start = self.loop.create_task(
                     self.__start(self._server)  # type: ignore
                 )
