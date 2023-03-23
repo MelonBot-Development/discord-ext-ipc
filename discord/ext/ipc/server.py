@@ -283,7 +283,7 @@ class Server:
 
                             raise JSONEncodeError(error_response)
 
-        with __import__('contextlib').supress(TypeError):
+        with __import__('contextlib').suppress(TypeError):
             try:
                 self._server = FastAPI()
                 start = self.loop.create_task(
