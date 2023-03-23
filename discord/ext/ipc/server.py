@@ -292,4 +292,3 @@ class Server:
                 log.info(start.result())
             except Exception:
                 log.exception('Uh Oh! Something went wrong!', exc_info=True)
-
