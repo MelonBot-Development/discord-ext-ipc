@@ -54,9 +54,9 @@ _version_regex = r"^version = ('|\")((?:[0-9]+\.)*[0-9]+(?:\.?([a-z]+)(?:\.?[0-9
 with open("discord/ext/ipc/__init__.py") as stream:
     match = re.search(_version_regex, stream.read(), re.MULTILINE)
 
-version = match.group(2)
+version = match.group(2) # type: ignore
 
-if match.group(3) is not None:
+if match.group(3) is not None: # type: ignore
     try:
         import subprocess
 
@@ -74,7 +74,7 @@ if match.group(3) is not None:
 
 
 setuptools.setup(
-    author="Ext-Creators",
+    author="japandotorg",
     classifiers=classifiers,
     description="A discord.py (red-discordbot) extension for inter-process communication.",
     extras_require=extras_require,

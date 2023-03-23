@@ -20,5 +20,5 @@ __all__ = (
     "NotConnected",
 )
 
-version = "3.0.0"
-version_info = _VersionInfo(3, 0, 0, "final", 0)
+version = "3.0.1"
+version_info = _VersionInfo(3, 0, 1, "final", 0)
